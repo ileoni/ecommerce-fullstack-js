@@ -8,15 +8,24 @@
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
+@theme {
+  --text-12: calc(var(--spacing) * 12);
+  --text-10: calc(var(--spacing) * 10);
+  --text-8: calc(var(--spacing) * 8);
+  --text-6: calc(var(--spacing) * 6);
+  --text-4: calc(var(--spacing) * 4);
+  --text-3: calc(var(--spacing) * 3);
+}
+
 :root {
   --background-color: var(--color-zinc-100);
   --text-color: var(--color-zinc-800);
+  --font-Cairo: 'Cairo', sans-serif, serif;
 }
 
 [data-theme=dark] {
   --background-color: var(--color-zinc-900);
   --text-color: var(--color-zinc-100);
-  --font-Cairo: 'Cairo', sans-serif, serif;
 }
 
 * {
