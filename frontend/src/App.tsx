@@ -5,7 +5,6 @@ function App() {
   return (
     <>
       <Theme>
-        <Theme.Toggle />
         <Outlet />
       </Theme>
     </>

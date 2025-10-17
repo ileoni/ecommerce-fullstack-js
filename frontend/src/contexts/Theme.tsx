@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, type Dispatch, type PropsWithChildren, type SetStateAction } from "react";
-import { useLocalStorage } from "../useLocalStorage";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 import { Moon, SunMedium } from "lucide-react";
 
 type Themes = "light" | "dark";
