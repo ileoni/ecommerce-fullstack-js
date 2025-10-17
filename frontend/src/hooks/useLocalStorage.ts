@@ -6,8 +6,8 @@ export const useLocalStorage = (key: string) => {
         return localStorage.getItem(_key);
     }
     
-    const add = (value: unknown) => {
-        localStorage.setItem(_key, JSON.stringify(value));
+    const add = (value: string) => {
+        localStorage.setItem(_key, value);
     }
     
     return {
