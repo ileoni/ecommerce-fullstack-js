@@ -2,14 +2,16 @@ import { createContext, useContext, useState, type ChangeEvent, type Dispatch, t
 import Label from "./Label";
 import { Eye, EyeOff } from "lucide-react";
 
-type Password = { show: boolean, setToggle: Dispatch<SetStateAction<boolean>> };
+type PasswordContext = { show: boolean, setToggle: Dispatch<SetStateAction<boolean>> };
 type Props = { label?: string, message?: string } & InputHTMLAttributes<HTMLInputElement>;
 
-const PasswordContext = createContext({} as Password);
+const PasswordContext = createContext({} as PasswordContext);
 
 const usePassword = () => useContext(PasswordContext);
 
 function Password(props: Props) {
+    const { onChange } = props;
+
     const [show, setToggle] = useState(false);
     const [float, setFloatToggle] = useState(false);
 
@@ -20,6 +22,7 @@ function Password(props: Props) {
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const toggle = e.target.value !== "" ? true: false;
         setFloatToggle(toggle);
+        if(onChange) onChange(e);
     }
 
     return (
@@ -27,6 +30,7 @@ function Password(props: Props) {
             <Label {...props} float={float}>
                 <div className="grid grid-flow-col grid-cols-[1fr_auto]">
                     <input
+                        {...props}
                         type={show ? "text": "password"}
                         className="w-full px-4 py-2 outline-none"
                         onChange={handleChange}

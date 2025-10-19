@@ -4,11 +4,14 @@ import Label from "./Label";
 type Props = { label?: string, message?: string } & InputHTMLAttributes<HTMLInputElement>;
 
 function Text(props: Props) {
+    const { onChange } = props;
+
     const [float, setFloatToggle] = useState(false);
     
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const toggle = e.target.value !== "" ? true: false;
         setFloatToggle(toggle);
+        if(onChange) onChange(e);
     }
 
     return (
