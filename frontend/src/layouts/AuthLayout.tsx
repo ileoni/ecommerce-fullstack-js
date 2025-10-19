@@ -1,7 +1,10 @@
+import { NavLink, Outlet } from "react-router";
+
 import Theme from "../contexts/Theme";
 import Header from "../components/auth/Header";
+import Footer from "../components/auth/Footer";
 import LogoIpsum from "../components/ui/LogoIpsum";
-import { NavLink } from "react-router";
+import Container from "../components/auth/Container";
 
 function AuthLoyout() {
     return (
@@ -14,6 +17,12 @@ function AuthLoyout() {
                     <Theme.Toggle />
                 </div>
             </Header>
+            <Container>
+                <Outlet />
+            </Container>
+            <Footer>
+                Desenvolvido por Igor, todos os direitos reservados.
+            </Footer>
         </>
     )
 }

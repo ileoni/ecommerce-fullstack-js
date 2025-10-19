@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, type Dispatch, type PropsWithChildren, type SetStateAction } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
-import { Moon, SunMedium } from "lucide-react";
+import { Moon, SunMedium, SunMoonIcon } from "lucide-react";
 
 type Themes = "light" | "dark";
 type Theme = { theme: Themes | string, setTheme: Dispatch<SetStateAction<Themes | string>>, isLight: boolean }
@@ -38,10 +38,10 @@ const Toggle = () => {
     const { isLight, setTheme } = useTheme();
     return (
         <button 
-            className="p-1 bg-zinc-200 dark:bg-zinc-700 rounded-full"
+            className="p-1 bg-zinc-100 dark:bg-zinc-900 rounded-full"
             onClick={() => setTheme(() => isLight ? "dark": "light")}
         >
-            { isLight ? <SunMedium /> : <Moon /> }
+            { isLight ? <SunMedium /> : <SunMoonIcon /> }
         </button>
     )
 }

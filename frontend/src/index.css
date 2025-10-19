@@ -21,11 +21,13 @@
   --background-color: var(--color-zinc-100);
   --text-color: var(--color-zinc-800);
   --font-Cairo: 'Cairo', sans-serif, serif;
+  --input-shadow: var(--color-white);
 }
 
 [data-theme=dark] {
   --background-color: var(--color-zinc-900);
   --text-color: var(--color-zinc-100);
+  --input-shadow: var(--color-zinc-700);
 }
 
 * {
@@ -36,4 +38,12 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
   font-family: var(--font-Cairo);
+}
+
+input:is(:-webkit-autofill, :-webkit-autofill:focus) {
+  border-radius: calc(infinity * 1px);
+  outline: none;
+  caret-color: var(--text-color);
+  -webkit-text-fill-color: var(--text-color);
+  -webkit-box-shadow: 0 0 0px 40rem var(--input-shadow) inset;
 }
