@@ -5,6 +5,8 @@ import AuthLayout from "./layouts/AuthLayout";
 import AdminLayout from "./layouts/AdminLayout";
 import Login from "./pages/Login";
 import PreSend from "./pages/PreSend";
+import ValidateCode from "./pages/ValidateCode";
+import ResetPassword from "./pages/ResetPassword";
 
 export const router = createBrowserRouter([
     {
@@ -26,6 +28,14 @@ export const router = createBrowserRouter([
                             {
                                 Component: PreSend,
                                 path: "pre-envio"
+                            },
+                            {
+                                Component: ValidateCode,
+                                path: "validar-codigo"
+                            },
+                            {
+                                Component: ResetPassword,
+                                path: "redefinir-senha"
                             }
                         ]
                     },
