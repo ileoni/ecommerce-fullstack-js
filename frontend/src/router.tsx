@@ -4,6 +4,7 @@ import App from "./App";
 import AuthLayout from "./layouts/AuthLayout";
 import AdminLayout from "./layouts/AdminLayout";
 import Login from "./pages/Login";
+import PreSend from "./pages/PreSend";
 
 export const router = createBrowserRouter([
     {
@@ -21,12 +22,16 @@ export const router = createBrowserRouter([
                             {
                                 Component: Login,
                                 index: true
+                            },
+                            {
+                                Component: PreSend,
+                                path: "pre-envio"
                             }
                         ]
                     },
                     {
                         Component: AdminLayout
-                    }
+                    } 
                 ]
             }
         ]
