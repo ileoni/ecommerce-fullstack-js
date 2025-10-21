@@ -3,12 +3,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod"
 
+import { login } from "../../../services/admin/login";
+import { useAlert } from "../../../contexts/Alert";
 import { useConfigs } from "../../../hooks/useConfigs";
+import { BAD_REQUEST, OK } from "../../../constants";
 import Text from "../../ui/Text";
 import Password from "../../ui/Password";
 import SuccessStyle from "../../ui/SuccessStyle";
 import ExtraSmallButton from "../../ui/HOC/ExtraSmallButton";
-import { useError } from "../../ui/Error";
 
 const schema = z.object({
     email: z.email("endereço de e-mail inválido").nonempty(),
@@ -19,7 +21,7 @@ type Schema = z.infer<typeof schema>
 
 function Form() {
     const { preSend } = useConfigs("menus.admin.deauthenticate");
-    const { handleError } = useError();
+    const { handleShowAlert } = useAlert();
     const navigate = useNavigate();
 
     const SuccessButton = SuccessStyle(ExtraSmallButton);
@@ -31,20 +33,13 @@ function Form() {
     });
 
     const onSubmit = (data: any) => {
-        fetch("http://localhost:3000/login", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
+        login(data)
         .then(async res => {
             const data = await res.json();
-
-            if(res.statusText.includes("OK")) {
-                navigate("dashboard")
-            } else if(res.statusText.includes("Bad Request")) {
-                handleError(data.message);
+            if(res.statusText.includes(OK)) {
+                navigate("dashboard");
+            } else if(res.statusText.includes(BAD_REQUEST)) {
+                handleShowAlert(data.message, "warning");
             }
         })
     }

@@ -1,14 +1,14 @@
 import { Outlet } from "react-router"
 import Theme from "./contexts/Theme"
-import Error from "./components/ui/Error"
+import Alert from "./contexts/Alert"
 
 function App() {
   return (
     <>
       <Theme>
-        <Error>
+        <Alert>
           <Outlet />
-        </Error>
+        </Alert>
       </Theme>
     </>
   )

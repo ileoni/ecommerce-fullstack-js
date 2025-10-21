@@ -1,12 +1,13 @@
+import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
-import ExtraSmallButton from "../../ui/HOC/ExtraSmallButton";
-import SuccessStyle from "../../ui/SuccessStyle";
+import { preSend } from "../../../services/admin/preSend";
+import { useAlert } from "../../../contexts/Alert";
 import Text from "../../ui/Text";
-import { useError } from "../../ui/Error";
-import { useNavigate } from "react-router";
+import SuccessStyle from "../../ui/SuccessStyle";
+import ExtraSmallButton from "../../ui/HOC/ExtraSmallButton";
 
 const schema = z.object({
     email: z.email("endereço de e-mail inválido").nonempty()
@@ -17,7 +18,7 @@ type Schema = z.infer<typeof schema>;
 
 function Form() {
     const navigate = useNavigate();
-    const { handleError } = useError();
+    const { handleShowAlert } = useAlert();
 
     const { handleSubmit, register, formState: { isDirty, isValid, errors } } = useForm<Schema>({ 
         defaultValues: { email: "" },
@@ -28,19 +29,17 @@ function Form() {
     const SuccessButton = SuccessStyle(ExtraSmallButton);
     
     const onSubmit = (data: Schema) => {
-        fetch("http://localhost:3000/pre-send", {
-            body: JSON.stringify(data),
-            headers: { 'Content-Type': 'application/json' },
-            method: "POST",
-        }).then(async res => {
+        preSend(data)
+        .then(async res => {
             const data = await res.json();
+            console.log(res.statusText)
             if(res.statusText.includes("OK")) {
                 console.log("avançar")
                 navigate("/administrador/validar-codigo");
             } else if(res.statusText.includes("Bad Request")) {
-                handleError(data.message);
+                handleShowAlert(data.message, "warning");
             } else if(res.statusText.includes("Internal Server Error")) {
-                handleError(data.message);
+                handleShowAlert(data.message, "danger");
             }
         })
     }

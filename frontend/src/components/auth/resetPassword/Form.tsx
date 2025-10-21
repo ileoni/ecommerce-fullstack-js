@@ -3,10 +3,11 @@ import { useNavigate } from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
-import { useError } from "../../ui/Error";
+import { useAlert } from "../../../contexts/Alert";
+import { resetPassword } from "../../../services/admin/resetPassword";
+import Password from "../../ui/Password";
 import SuccessStyle from "../../ui/SuccessStyle";
 import ExtraSmallButton from "../../ui/HOC/ExtraSmallButton";
-import Password from "../../ui/Password";
 
 const schema = z.object({
     password: z.string().min(8).nonempty(),
@@ -17,31 +18,28 @@ type Schema = z.infer<typeof schema>;
 
 function Form() {
     const navigate = useNavigate();
-    const { handleError } = useError();
+    const { handleShowAlert } = useAlert();
 
     const SuccessButton = SuccessStyle(ExtraSmallButton);
 
     const { formState: { errors, isDirty, isValid }, handleSubmit, register  } = useForm<Schema>({ defaultValues: { password: "", confirmPassword: "" }, resolver: zodResolver(schema), mode: "onChange" })
 
     const onSubmit = (data: Schema) => {
-        fetch("http://localhost:3000/reset-password", {
-            body: JSON.stringify(data),
-            headers: { 'Content-Type': 'application/json' },
-            method: "PUT",
-        }).then(async res => {
+        resetPassword(data)
+        .then(async res => {
             const data = await res.json();
             if(res.statusText.includes("OK")) {
                 navigate("/administrador");
             } else if(res.statusText.includes("Bad Request")) {
-                handleError(data.message);
+                handleShowAlert(data.message, "warning");
             }
         })
     }
 
     return (
         <>
-            <Password {...register("password")} label="nova senha" />
-            <Password {...register("confirmPassword")} label="confirmar senha" />
+            <Password {...register("password")} label="nova senha" message={errors.password?.message}/>
+            <Password {...register("confirmPassword")} label="confirmar senha" message={errors.confirmPassword?.message}/>
             <div className="grid justify-end">
                 <SuccessButton  onClick={handleSubmit(onSubmit)} disabled={!isValid || !isDirty}>
                     Avançar

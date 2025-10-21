@@ -1,11 +1,13 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+
+import { useAlert } from "../../../contexts/Alert";
+import { useNavigate } from "react-router";
+import { validateCode } from "../../../services/admin/validateCode";
 import Text from "../../ui/Text";
 import SuccessStyle from "../../ui/SuccessStyle";
 import ExtraSmallButton from "../../ui/HOC/ExtraSmallButton";
-import { useNavigate } from "react-router";
-import { useError } from "../../ui/Error";
 
 const schema = z.object({
     validateCode: z.string().max(6).nonempty()
@@ -15,24 +17,21 @@ type Schema = z.infer<typeof schema>;
 
 function Form() {
     const navigate = useNavigate();
-    const { handleError } = useError();
+    const { handleShowAlert } = useAlert();
 
     const SuccessButton = SuccessStyle(ExtraSmallButton);
 
     const { formState: { errors, isDirty, isValid }, handleSubmit, register  } = useForm<Schema>({ defaultValues: { validateCode: "" }, resolver: zodResolver(schema), mode: "onChange" })
 
     const onSubmit = (data: Schema) => {
-        fetch("http://localhost:3000/validate-code", {
-            body: JSON.stringify(data),
-            headers: { 'Content-Type': 'application/json' },
-            method: "POST"
-        }).then(async res => {
+        validateCode(data)
+        .then(async res => {
             const data = await res.json();
 
             if(res.statusText.includes("OK")) {
                 navigate("/administrador/redefinir-senha");
             } else if(res.statusText.includes("Bad Request")) {
-                handleError(data.message);
+                handleShowAlert(data.message, "warning");
             }
 
             return res.json();
