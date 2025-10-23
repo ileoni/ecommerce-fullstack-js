@@ -37,7 +37,7 @@ function Form() {
         .then(async res => {
             const data = await res.json();
             if(res.statusText.includes(OK)) {
-                navigate("dashboard");
+                navigate("painel");
             } else if(res.statusText.includes(BAD_REQUEST)) {
                 handleShowAlert(data.message, "warning");
             }

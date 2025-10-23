@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import PreSend from "./pages/PreSend";
 import ValidateCode from "./pages/ValidateCode";
 import ResetPassword from "./pages/ResetPassword";
+import Dashboard from "./pages/Dashboard";
 
 export const router = createBrowserRouter([
     {
@@ -40,7 +41,69 @@ export const router = createBrowserRouter([
                         ]
                     },
                     {
-                        Component: AdminLayout
+                        Component: AdminLayout,
+                        children: [
+                            {
+                                Component: Dashboard,
+                                path: "painel"
+                            },
+                            {
+                                Component: Dashboard,
+                                path: "paginas"
+                            },
+                            {
+                                Component: Dashboard,
+                                path: "galeria",
+                                children: [
+                                    {
+                                        Component: Dashboard,
+                                        path: "lista"
+                                    },
+                                    {
+                                        Component: Dashboard,
+                                        path: "categorias"
+                                    }
+                                ]
+                            },
+                            {
+                                Component: Dashboard,
+                                path: "produtos",
+                                children: [
+                                    {
+                                        Component: Dashboard,
+                                        path: "lista"
+                                    },
+                                    {
+                                        Component: Dashboard,
+                                        path: "categorias"
+                                    },
+                                    {
+                                        Component: Dashboard,
+                                        path: "coupons"
+                                    }
+                                ]
+                            },
+                            {
+                                Component: Dashboard,
+                                path: "pedidos"
+                            },
+                            {
+                                Component: Dashboard,
+                                path: "usuarios"
+                            },
+                            {
+                                Component: Dashboard,
+                                path: "configuracao"
+                            },
+                            {
+                                Component: Dashboard,
+                                path: "perfil"
+                            },
+                            {
+                                Component: Dashboard,
+                                path: "sair"
+                            },
+                        ]
                     } 
                 ]
             }

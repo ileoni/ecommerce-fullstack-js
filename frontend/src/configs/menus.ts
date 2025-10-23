@@ -87,8 +87,13 @@ export default {
                 isVisible: true,
             }),
             profile: setAttributes({
-                title: "Perfil de administrador",
+                title: "perfil",
                 slug: "perfil",
+                isVisible: false,
+            }),
+            logout: setAttributes({
+                title: "sair",
+                slug: "sair",
                 isVisible: false,
             }),
         }
