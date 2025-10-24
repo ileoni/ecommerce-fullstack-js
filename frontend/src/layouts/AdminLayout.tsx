@@ -1,17 +1,17 @@
+import { Outlet } from "react-router";
+
 import Theme from "../contexts/Theme";
 import Header from "../components/ui/Header";
-import LogoIpsum from "../components/ui/LogoIpsum";
+import Footer from "../components/ui/Footer";
 import Navbar from "../components/ui/Navbar";
-import DropdownAvatar from "../components/ui/DropdownAvatar";
-import Logo from "../assets/react.svg";
-import { NavLink } from "react-router";
-import { useConfigs } from "../hooks/useConfigs";
+import Container from "../components/ui/Container";
+import LogoIpsum from "../components/ui/LogoIpsum";
+import Authenticate from "../contexts/Authenticate";
+import DropdownWithAvatar from "../components/admin/DropdownWithAvatar";
 
 function AdminLayout() {
-    const { profile, logout } = useConfigs("menus.admin.authenticate");
-
     return (
-        <>
+        <Authenticate>
             <Header>
                 <Navbar>
                     <div className="h-16 px-4 lg:px-0">
@@ -22,27 +22,7 @@ function AdminLayout() {
                                 <Theme.Toggle />
                             </div>
                             <div className="relative grid items-center">
-                                <DropdownAvatar>
-                                    <DropdownAvatar.Toggle>
-                                        <img src={Logo} alt="" />
-                                    </DropdownAvatar.Toggle>
-                                    <DropdownAvatar.Menu>
-                                        <ul>
-                                            <li className="px-4 py-2">
-                                                <NavLink to={ profile.slug }>
-                                                    { profile.title }
-                                                </NavLink>
-                                            </li>
-                                        </ul>
-                                        <ul className="bg-zinc-300 dark:bg-zinc-600">
-                                            <li className="px-4 py-2">
-                                                <NavLink to={ logout.slug }>
-                                                    { logout.title }
-                                                </NavLink>
-                                            </li>
-                                        </ul>
-                                    </DropdownAvatar.Menu>
-                                </DropdownAvatar>
+                                <DropdownWithAvatar />
                             </div>
                         </div>
                     </div>
@@ -52,11 +32,14 @@ function AdminLayout() {
                         </div>
                     </div>
                 </Navbar>
-            </Header>  
-            {/* <Footer>
+            </Header>
+            <Container>
+                <Outlet />
+            </Container>
+            <Footer>
                 Desenvolvido por Igor, todos os direitos reservados.
-            </Footer> */}
-        </>
+            </Footer>
+        </Authenticate>
     )
 }
 
