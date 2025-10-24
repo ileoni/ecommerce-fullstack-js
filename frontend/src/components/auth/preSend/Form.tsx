@@ -7,7 +7,7 @@ import { preSend } from "../../../services/admin/preSend";
 import { useAlert } from "../../../contexts/Alert";
 import Text from "../../ui/Text";
 import SuccessStyle from "../../ui/SuccessStyle";
-import ExtraSmallButton from "../../ui/HOC/ExtraSmallButton";
+import ExtraSmallButton from "../../ui/ExtraSmallButton";
 
 const schema = z.object({
     email: z.email("endereço de e-mail inválido").nonempty()
