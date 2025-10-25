@@ -1,26 +1,31 @@
-import { useState, type ChangeEvent, type InputHTMLAttributes } from "react";
+import { useEffect, useState, type FocusEvent, type InputHTMLAttributes } from "react";
 import Label from "./Label";
 
 type Props = { label?: string, message?: string } & InputHTMLAttributes<HTMLInputElement>;
 
 function Text(props: Props) {
-    const { onChange } = props;
+    const { value, ...rest } = props;
 
-    const [float, setFloatToggle] = useState(false);
+    const [filled, setIsFilled] = useState(false);
     
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const toggle = e.target.value !== "" ? true: false;
-        setFloatToggle(toggle);
-        if(onChange) onChange(e);
+    const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
+        const notEmpty = e.target.value !== "" ? true: false;
+        setIsFilled(notEmpty);
     }
+    
+    useEffect(() => {
+        const notEmpty = value !== "" ? true: false;
+        setIsFilled(notEmpty);
+    }, [value])
 
     return (
-        <Label {...props} float={float}>
-            <input 
-                {...props}
+        <Label {...props} filled={filled}>
+            <input
                 type="text"
+                value={value}
                 className="w-full px-4 py-2 outline-none"
-                onChange={handleChange}
+                onBlur={handleBlur}
+                {...rest}
             />
         </Label>
     );

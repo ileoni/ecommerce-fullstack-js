@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, type ChangeEvent, type Dispatch, type InputHTMLAttributes, type SetStateAction } from "react";
+import { createContext, useContext, useEffect, useState, type ChangeEvent, type Dispatch, type InputHTMLAttributes, type SetStateAction } from "react";
 import Label from "./Label";
 import { Eye, EyeOff } from "lucide-react";
 
@@ -10,30 +10,35 @@ const PasswordContext = createContext({} as PasswordContext);
 const usePassword = () => useContext(PasswordContext);
 
 function Password(props: Props) {
-    const { onChange } = props;
+    const { onChange, value, ...rest } = props;
 
     const [show, setToggle] = useState(false);
-    const [float, setFloatToggle] = useState(false);
+    const [filled, setIsFilled] = useState(false);
 
     const state = {
         show, setToggle
     }
     
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const toggle = e.target.value !== "" ? true: false;
-        setFloatToggle(toggle);
+    const handleBlur = (e: ChangeEvent<HTMLInputElement>) => {
+        const notEmpty = e.target.value !== "" ? true: false;
+        setIsFilled(notEmpty);
         if(onChange) onChange(e);
     }
 
+    useEffect(() => {
+        const notEmpty = value !== "" ? true: false;
+        setIsFilled(notEmpty)
+    }, [value])
+
     return (
         <PasswordContext.Provider value={state}>
-            <Label {...props} float={float}>
+            <Label {...props} filled={filled}>
                 <div className="grid grid-flow-col grid-cols-[1fr_auto]">
                     <input
-                        {...props}
                         type={show ? "text": "password"}
                         className="w-full px-4 py-2 outline-none"
-                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        {...rest}
                     />
                     <Password.Toggle />
                 </div>
