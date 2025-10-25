@@ -1,13 +1,14 @@
 import { createBrowserRouter } from "react-router";
 
 import App from "./App";
+import Login from "./pages/Login";
+import Profile from "./pages/Profile";
+import PreSend from "./pages/PreSend";
+import Dashboard from "./pages/Dashboard";
 import AuthLayout from "./layouts/AuthLayout";
 import AdminLayout from "./layouts/AdminLayout";
-import Login from "./pages/Login";
-import PreSend from "./pages/PreSend";
 import ValidateCode from "./pages/ValidateCode";
 import ResetPassword from "./pages/ResetPassword";
-import Dashboard from "./pages/Dashboard";
 
 export const router = createBrowserRouter([
     {
@@ -96,7 +97,7 @@ export const router = createBrowserRouter([
                                 path: "configuracao"
                             },
                             {
-                                Component: Dashboard,
+                                Component: Profile,
                                 path: "perfil"
                             },
                             {
