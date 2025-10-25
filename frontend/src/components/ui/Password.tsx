@@ -10,7 +10,7 @@ const PasswordContext = createContext({} as PasswordContext);
 const usePassword = () => useContext(PasswordContext);
 
 function Password(props: Props) {
-    const { onChange, value, ...rest } = props;
+    const { value, ...rest } = props;
 
     const [show, setToggle] = useState(false);
     const [filled, setIsFilled] = useState(false);
@@ -22,7 +22,6 @@ function Password(props: Props) {
     const handleBlur = (e: ChangeEvent<HTMLInputElement>) => {
         const notEmpty = e.target.value !== "" ? true: false;
         setIsFilled(notEmpty);
-        if(onChange) onChange(e);
     }
 
     useEffect(() => {
@@ -36,6 +35,7 @@ function Password(props: Props) {
                 <div className="grid grid-flow-col grid-cols-[1fr_auto]">
                     <input
                         type={show ? "text": "password"}
+                        value={value}
                         className="w-full px-4 py-2 outline-none"
                         onBlur={handleBlur}
                         {...rest}

@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod"
 
@@ -26,7 +26,7 @@ function Form() {
 
     const SuccessButton = SuccessStyle(ExtraSmallButton);
 
-    const { register, handleSubmit, formState: { isDirty, isValid, errors } } = useForm<Schema>({
+    const { control, handleSubmit, formState: { isDirty, isValid, errors } } = useForm<Schema>({
         mode: "onChange",
         resolver: zodResolver(schema),
         defaultValues: { email: "", password: "" }
@@ -46,8 +46,16 @@ function Form() {
 
     return (
         <>
-        <Text {...register("email")} label="Email" message={errors.email?.message}/>
-        <Password {...register("password")} label="Senha"/>
+        <Controller
+            name="email"
+            control={control}
+            render={({ field }) => <Text label="Email" message={errors.email?.message} {...field}/>}
+        />
+        <Controller
+            name="password"
+            control={control}
+            render={({ field }) => <Password label="Senha" message={errors.password?.message} {...field}/>}
+        />
         <div className="grid grid-flow-col justify-between items-center">
             <NavLink to={preSend.slug}>
                 Esqueceu sua senha?
