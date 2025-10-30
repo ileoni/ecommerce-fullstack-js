@@ -6,7 +6,7 @@ import { useAlert } from "../../../contexts/Alert";
 import { useNavigate } from "react-router";
 import { validateCode } from "../../../services/admin/validateCode";
 import Text from "../../ui/Text";
-import SuccessStyle from "../../ui/SuccessStyle";
+import SuccessStyle from "../../ui/HOC/SuccessStyle";
 import ExtraSmallButton from "../../ui/ExtraSmallButton";
 
 const schema = z.object({

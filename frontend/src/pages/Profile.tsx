@@ -8,10 +8,12 @@ import Text from "../components/ui/Text";
 import Avatar from "../components/ui/Avatar";
 import TextArea from "../components/ui/TextArea";
 import ExtraSmallButton from "../components/ui/ExtraSmallButton";
-import SuccessStyle from "../components/ui/SuccessStyle";
+import SuccessStyle from "../components/ui/HOC/SuccessStyle";
 import ExtraLargeSizeAvatar from "../components/ui/HOC/ExtraLargeSizeAvatar";
 import { useEffect, useState } from "react";
 import { getUser } from "../services/admin/user";
+import Overlay, { useOverlay } from "../contexts/Overlay";
+import GalleryModal from "../components/admin/profile/GalleryModal";
 
 const schema = z.object({
     firstname: z.string(),
@@ -23,7 +25,7 @@ type Schema = z.infer<typeof schema>;
 
 type Image = { path: string }
 type Customer = { id: number, userId: number, firstname: string, lastname: string, bio: string, phone: string }
-type User = { id: number, email: string, password: string, role: string, customer: Customer, image: Image }
+type User = { id: number, email: string, password: string, role: string, customer: Customer, avatar: Image }
 
 function Profile() {
     const [user, setUser] = useState<User | null>(null);
@@ -37,6 +39,8 @@ function Profile() {
             bio: ""
         }
     });
+
+    const {} = useOverlay({ Component: <GalleryModal/> })
 
     const ExtraLargeAvatar = ExtraLargeSizeAvatar(Avatar);
     const SuccessButton = SuccessStyle(ExtraSmallButton);
@@ -62,7 +66,7 @@ function Profile() {
     }, [auth])
 
     return (
-        <Card>
+        <Card className="h-svh">
             <div className="grid gap-5">
                 <div className="justify-self-end">
                     <SuccessButton onClick={handleSubmit(onSubmit)}>salvar</SuccessButton>
@@ -71,7 +75,11 @@ function Profile() {
                     <div className="flex flex-col">
                         <span className="first-letter:capitalize font-bold">avatar</span>
                     </div>
-                    {user && <ExtraLargeAvatar src={user.image.path}/>}
+                    {user && (
+                        <Overlay.Toggle>
+                            <ExtraLargeAvatar src={user.avatar.path}/>
+                        </Overlay.Toggle>
+                    )}
                 </div>
                 <div className="grid grid-cols-2">
                     <div className="flex flex-col">

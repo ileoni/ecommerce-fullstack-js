@@ -6,7 +6,7 @@ import * as z from "zod";
 import { useAlert } from "../../../contexts/Alert";
 import { resetPassword } from "../../../services/admin/resetPassword";
 import Password from "../../ui/Password";
-import SuccessStyle from "../../ui/SuccessStyle";
+import SuccessStyle from "../../ui/HOC/SuccessStyle";
 import ExtraSmallButton from "../../ui/ExtraSmallButton";
 
 const schema = z.object({

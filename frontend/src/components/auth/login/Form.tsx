@@ -9,7 +9,7 @@ import { useConfigs } from "../../../hooks/useConfigs";
 import { BAD_REQUEST, OK } from "../../../constants";
 import Text from "../../ui/Text";
 import Password from "../../ui/Password";
-import SuccessStyle from "../../ui/SuccessStyle";
+import SuccessStyle from "../../ui/HOC/SuccessStyle";
 import ExtraSmallButton from "../../ui/ExtraSmallButton";
 
 const schema = z.object({

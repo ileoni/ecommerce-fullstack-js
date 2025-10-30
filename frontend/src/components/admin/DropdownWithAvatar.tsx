@@ -10,7 +10,7 @@ import { getUser } from "../../services/admin/user";
 
 type Image = { path: string }
 type Customer = { id: number, userId: number, firstname: string, lastname: string, bio: string, phone: string }
-type User = { id: number, email: string, password: string, role: string, customer: Customer, image: Image }
+type User = { id: number, email: string, password: string, role: string, customer: Customer, avatar: Image }
 
 function DropdownWithAvatar() {
     const [user, setUser] = useState<User | null>(null);
@@ -30,7 +30,7 @@ function DropdownWithAvatar() {
     return (
         <Dropdown>
             <Dropdown.Toggle>
-                {user && (<SmallAvatar src={user.image.path}/>)}
+                {user && (<SmallAvatar src={user.avatar.path}/>)}
             </Dropdown.Toggle>
             <Dropdown.Menu className="w-56! absolute right-0 rounded">
                 <ul>
