@@ -9,6 +9,7 @@ import AuthLayout from "./layouts/AuthLayout";
 import AdminLayout from "./layouts/AdminLayout";
 import ValidateCode from "./pages/ValidateCode";
 import ResetPassword from "./pages/ResetPassword";
+import Pages from "./pages/Pages";
 
 export const router = createBrowserRouter([
     {
@@ -49,8 +50,16 @@ export const router = createBrowserRouter([
                                 path: "painel"
                             },
                             {
-                                Component: Dashboard,
-                                path: "paginas"
+                                Component: Pages,
+                                path: "paginas",
+                                children: [
+                                    {
+                                        path: "cadastrar"
+                                    },
+                                    {
+                                        path: "editar/:id"
+                                    }
+                                ]
                             },
                             {
                                 Component: Dashboard,
