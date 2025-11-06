@@ -45,10 +45,6 @@ function Profile() {
     const ExtraLargeAvatar = ExtraLargeSizeAvatar(Avatar);
     const SuccessButton = SuccessStyle(ExtraSmallButton);
 
-    const onSubmit = (data: any) => {
-        console.log("aqui", data);
-    }
-
     useEffect(() => {
         if(user) {
             setValue("firstname", user.customer.firstname)
@@ -69,7 +65,7 @@ function Profile() {
         <Card className="h-svh">
             <div className="grid gap-5">
                 <div className="justify-self-end">
-                    <SuccessButton onClick={handleSubmit(onSubmit)}>salvar</SuccessButton>
+                    <SuccessButton onClick={handleSubmit(() => {})}>salvar</SuccessButton>
                 </div>
                 <div className="grid grid-flow-col justify-between">
                     <div className="flex flex-col">
@@ -87,15 +83,15 @@ function Profile() {
                         <span className="first-letter:capitalize text-xs">nós diga seu nome.</span>
                     </div>
                     <div className="grid grid-flow-col gap-5">
-                        <Controller
+                        <Text
+                            control={control}
                             name="firstname"
-                            control={control}
-                            render={({ field }) => <Text label="nome" {...field}/>}
+                            label="nome"
                         />
-                        <Controller
-                            name="lastname"
+                        <Text
                             control={control}
-                            render={({ field }) => <Text label="sobrenome" {...field}/>}
+                            name="lastname"
+                            label="sobrenome"
                         />
                     </div>
                 </div>
@@ -105,10 +101,10 @@ function Profile() {
                         <span className="first-letter:capitalize text-xs">conte-nos mais sobre você.</span>
                     </div>
                     <div className="grid grid-flow-col gap-5">
-                        <Controller
-                            name="bio"
+                        <TextArea
                             control={control}
-                            render={({ field }) => <TextArea label="bio" {...field}/>}
+                            name="bio"
+                            label="bio"
                         />
                     </div>
                 </div>

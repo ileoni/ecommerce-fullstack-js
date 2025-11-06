@@ -9,14 +9,12 @@ function ResetPassword() {
     
     return (
         <Card>
-            <div className="h-full grid sm:grid-flow-col place-content-center sm:place-content-around">
+            <div className="h-full grid grid-cols-1 sm:grid-cols-2 place-content-center sm:place-content-around gap-5">
                 <div className="grid place-content-center text-center">
                     <H3>{resetPassword.title}</H3>
                     <H1>{resetPassword.subtitle}</H1>
                 </div>
-                <div className="grid sm:place-content-center">
-                    <Form />
-                </div>
+                <Form />
             </div>
         </Card>
     )
