@@ -36,6 +36,15 @@ export default {
                 title: "páginas",
                 slug: "paginas",
                 isVisible: true,
+                children: {
+                    register: setAttributes({
+                        slug: "cadastrar"
+                    }),
+                    edit: setAttributes({
+                        slug: "editar"
+                    }),
+                    isVisible: false
+                }
             }),
             gallery: setAttributes({
                 title: "galeria",
@@ -50,6 +59,7 @@ export default {
                         title: "categorias",
                         slug: "galeria/categorias"
                     }),
+                    isVisible: true
                 }
             }),
             product: setAttributes({
@@ -69,6 +79,7 @@ export default {
                         title: "coupons",
                         slug: "produtos/coupons"
                     }),
+                    isVisible: true
                 }
             }),
             orders: setAttributes({
