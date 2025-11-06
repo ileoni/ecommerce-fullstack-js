@@ -1,23 +1,27 @@
-import type { InputHTMLAttributes } from "react";
+import type { LabelHTMLAttributes } from "react";
 
-type Props = { label?: string, message?: string, filled?: boolean } & InputHTMLAttributes<HTMLInputElement>;
+function Label(props: { filled?: boolean, id?: string, isDirty?: boolean, label?: string, message?: string } & LabelHTMLAttributes<HTMLLabelElement>) {
+    const { children, filled, id, isDirty, label, message } = props;
 
-function Label(props: Props) {
-    const {
-        children,
-        id,
-        label,
-        message,
-        filled
-    } = props;
-    
     return (
-        <label htmlFor={id} className="group w-full mt-2 mb-5 relative grid items-center bg-white dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 rounded-full">
+        <label htmlFor={id} className={`group relative grid border border-zinc-200 dark:border-zinc-700 ${ message ? "border-red-400/50! dark:border-red-500/50!" : "" } rounded`}>
             { children }
-            <span className={`absolute left-4 group-has-[input:focus]:-translate-y-5 group-has-[input:focus]:text-xs first-letter:capitalize ${filled ? "-translate-y-5 text-xs": ""} transition-all`}>{ label }</span>
-            <span className="absolute left-4 -bottom-4.5 text-xs text-red-400 dark:text-red-300">{ message }</span>
+            <div
+                className={`grid group-has-[input]:items-center absolute inset-0 group-has-[textarea]:top-6 left-5 right-auto group-has-[input:focus,textarea:focus]:-translate-y-5 ${ isDirty ? "-translate-y-5 text-xs" : ""} ${ filled ? "-translate-y-5 text-xs" : ""} group-has-[input:focus,textarea:focus]:text-xs transition-[transform_font-size]`}
+            >
+                <span className="first-letter:capitalize">{ label }</span>
+            </div>
+            {
+                message && (
+                    <div
+                        className={`grid absolute bottom-1 left-5 text-xs text-red-400 dark:text-red-500`}
+                    >
+                        <span className="first-letter:capitalize">{ message }</span>
+                    </div>
+                )
+            }
         </label>
-    );
+    )
 }
 
 export default Label;

@@ -1,34 +1,34 @@
-import { useEffect, useState, type FocusEvent, type InputHTMLAttributes } from "react";
+import { useEffect, useState } from "react";
+import { useController, type FieldValues, type UseControllerProps } from "react-hook-form";
+
 import Label from "./Label";
 
-type Props = { label?: string, message?: string } & InputHTMLAttributes<HTMLInputElement>;
+type Props<T extends FieldValues> = { label?: string, message?: string } & UseControllerProps<T>;
 
-function Text(props: Props) {
-    const { value, ...rest } = props;
+function Text<T extends FieldValues>(props: Props<T>) {
+    const { control, name, label } = props;
+    const [filled, setFilled] = useState(false);
 
-    const [filled, setIsFilled] = useState(false);
-    
-    const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
-        const notEmpty = e.target.value !== "" ? true: false;
-        setIsFilled(notEmpty);
-    }
-    
+    const { field, fieldState: { error, isDirty } } = useController({
+        name,
+        control
+    })
+
     useEffect(() => {
-        const notEmpty = value !== "" ? true: false;
-        setIsFilled(notEmpty);
-    }, [value])
+        const notEmpty = field.value !== "" ? true : false;
+        setFilled(notEmpty);
+    }, [field])
 
     return (
-        <Label {...props} filled={filled}>
+        <Label label={label} isDirty={isDirty} message={error?.message} filled={filled}>
             <input
+                {...field}
+                className="px-5 py-6 outline-none"
                 type="text"
-                value={value}
-                className="w-full px-4 py-2 outline-none"
-                onBlur={handleBlur}
-                {...rest}
             />
         </Label>
-    );
+    )
 }
+
 
 export default Text;
