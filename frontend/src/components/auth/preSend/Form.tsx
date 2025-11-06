@@ -20,9 +20,8 @@ function Form() {
     const navigate = useNavigate();
     const { handleShowAlert } = useAlert();
 
-    const { handleSubmit, register, formState: { isDirty, isValid, errors } } = useForm<Schema>({ 
+    const { control, handleSubmit, formState: { isDirty, isValid } } = useForm<Schema>({ 
         defaultValues: { email: "" },
-        mode: "onChange",
         resolver: zodResolver(schema),
     });
 
@@ -45,14 +44,18 @@ function Form() {
     }
 
     return (
-        <>
-            <Text {...register("email")} label="email" message={errors.email?.message}/>
+        <div className="w-full grid gap-5">
+            <Text
+                control={control}
+                name="email"
+                label="email"
+            />
             <div className="w-full grid justify-end">
                 <SuccessButton onClick={handleSubmit(onSubmit)} disabled={!isDirty || !isValid}>
                     Avançar
                 </SuccessButton>
             </div>
-        </>
+        </div>
     )
 }
 

@@ -12,7 +12,7 @@ import ExtraSmallButton from "../../ui/ExtraSmallButton";
 const schema = z.object({
     password: z.string().min(8).nonempty(),
     confirmPassword: z.string().nonempty(),
-});
+}).refine(data => data.password === data.confirmPassword, { error: "senhas não coincidem" });
 
 type Schema = z.infer<typeof schema>;
 
@@ -22,7 +22,13 @@ function Form() {
 
     const SuccessButton = SuccessStyle(ExtraSmallButton);
 
-    const { formState: { errors, isDirty, isValid }, handleSubmit, register  } = useForm<Schema>({ defaultValues: { password: "", confirmPassword: "" }, resolver: zodResolver(schema), mode: "onChange" })
+    const { control, formState: { isDirty, isValid }, handleSubmit  } = useForm<Schema>({
+        defaultValues: {
+            password: "",
+            confirmPassword: ""
+        },
+        resolver: zodResolver(schema)
+    })
 
     const onSubmit = (data: Schema) => {
         resetPassword(data)
@@ -37,15 +43,23 @@ function Form() {
     }
 
     return (
-        <>
-            <Password {...register("password")} label="nova senha" message={errors.password?.message}/>
-            <Password {...register("confirmPassword")} label="confirmar senha" message={errors.confirmPassword?.message}/>
+        <div className="w-full grid gap-5">
+            <Password
+                control={control}
+                name="password"
+                label="nova senha"
+            />
+            <Password
+                control={control}
+                name="confirmPassword"
+                label="confirmar senha"
+            />
             <div className="grid justify-end">
                 <SuccessButton  onClick={handleSubmit(onSubmit)} disabled={!isValid || !isDirty}>
                     Avançar
                 </SuccessButton>
             </div>
-        </>
+        </div>
     )
 }
 

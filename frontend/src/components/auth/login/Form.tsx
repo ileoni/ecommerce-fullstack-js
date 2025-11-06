@@ -14,7 +14,7 @@ import ExtraSmallButton from "../../ui/ExtraSmallButton";
 
 const schema = z.object({
     email: z.email("endereço de e-mail inválido").nonempty(),
-    password: z.string().nonempty(),
+    password: z.string(),
 });
 
 type Schema = z.infer<typeof schema>
@@ -26,7 +26,7 @@ function Form() {
 
     const SuccessButton = SuccessStyle(ExtraSmallButton);
 
-    const { control, handleSubmit, formState: { isDirty, isValid, errors } } = useForm<Schema>({
+    const { control, handleSubmit, formState: { isDirty, isValid } } = useForm<Schema>({
         mode: "onChange",
         resolver: zodResolver(schema),
         defaultValues: { email: "", password: "" }
@@ -45,26 +45,26 @@ function Form() {
     }
 
     return (
-        <>
-        <Controller
-            name="email"
-            control={control}
-            render={({ field }) => <Text label="Email" message={errors.email?.message} {...field}/>}
-        />
-        <Controller
-            name="password"
-            control={control}
-            render={({ field }) => <Password label="Senha" message={errors.password?.message} {...field}/>}
-        />
-        <div className="grid grid-flow-col justify-between items-center">
-            <NavLink to={preSend.slug}>
-                Esqueceu sua senha?
-            </NavLink>
-            <SuccessButton onClick={handleSubmit(onSubmit)} disabled={!isDirty || !isValid}>
-                Entrar
-            </SuccessButton>
+        <div className="w-full grid gap-5">
+            <Text
+                control={control}
+                name="email"
+                label="email"
+            />
+            <Password
+                control={control}
+                name="password"
+                label="senha"
+            />
+            <div className="grid grid-flow-col justify-between items-center">
+                <NavLink to={preSend.slug}>
+                    Esqueceu sua senha?
+                </NavLink>
+                <SuccessButton onClick={handleSubmit(onSubmit)} disabled={!isDirty || !isValid}>
+                    Entrar
+                </SuccessButton>
+            </div>
         </div>
-        </>
     )
 }
 

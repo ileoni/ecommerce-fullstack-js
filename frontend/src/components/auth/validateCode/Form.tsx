@@ -21,7 +21,7 @@ function Form() {
 
     const SuccessButton = SuccessStyle(ExtraSmallButton);
 
-    const { formState: { errors, isDirty, isValid }, handleSubmit, register  } = useForm<Schema>({ defaultValues: { validateCode: "" }, resolver: zodResolver(schema), mode: "onChange" })
+    const { control, formState: { isDirty, isValid }, handleSubmit  } = useForm<Schema>({ defaultValues: { validateCode: "" }, resolver: zodResolver(schema), mode: "onChange" })
 
     const onSubmit = (data: Schema) => {
         validateCode(data)
@@ -39,14 +39,18 @@ function Form() {
     }
 
     return (
-        <>
-            <Text {...register("validateCode")} label="Código de validação" message={errors.validateCode?.message}/>
+        <div className="w-full grid gap-5">
+            <Text
+                control={control}
+                name="validateCode"
+                label="código de validação"
+            />
             <div className="grid justify-end">
                 <SuccessButton disabled={!isValid || !isDirty} onClick={handleSubmit(onSubmit)}>
                     Avançar
                 </SuccessButton>
             </div>
-        </>
+        </div>
     )
 }
 
