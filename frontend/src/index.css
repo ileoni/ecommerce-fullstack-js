@@ -27,7 +27,7 @@
 [data-theme=dark] {
   --background-color: var(--color-zinc-900);
   --text-color: var(--color-zinc-100);
-  --input-shadow: var(--color-zinc-700);
+  --input-shadow: var(--color-zinc-800);
 }
 
 * {
@@ -41,9 +41,15 @@ body {
 }
 
 input:is(:-webkit-autofill, :-webkit-autofill:focus) {
-  border-radius: calc(infinity * 1px);
   outline: none;
   caret-color: var(--text-color);
   -webkit-text-fill-color: var(--text-color);
   -webkit-box-shadow: 0 0 0px 40rem var(--input-shadow) inset;
+}
+
+select:not([size]) {
+  appearance: none;
+  background-image: var(--lucide-chevron-down);
+  background-repeat: no-repeat;
+  background-position: right calc(var(--spacing) * 3) center;
 }
