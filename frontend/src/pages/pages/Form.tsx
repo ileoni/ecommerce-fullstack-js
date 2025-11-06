@@ -39,7 +39,7 @@ function Form() {
 
     const params = useParams();
 
-    const { control, handleSubmit, setValue } = useForm<Schema>({
+    const { control, setValue } = useForm<Schema>({
         resolver: zodResolver(schema),
         defaultValues: {
             key: "",
