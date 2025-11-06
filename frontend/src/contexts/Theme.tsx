@@ -8,7 +8,7 @@ type Theme = { theme: Themes | string, setTheme: Dispatch<SetStateAction<Themes 
 const ThemeContext = createContext({} as Theme);
 
 const html = document.querySelector("html")!;
-const useTheme = () => useContext(ThemeContext);
+export const useTheme = () => useContext(ThemeContext);
 
 function Theme({ children }: PropsWithChildren) {
     const { get, add } = useLocalStorage("apptheme");
