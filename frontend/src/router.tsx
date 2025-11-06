@@ -9,7 +9,10 @@ import AuthLayout from "./layouts/AuthLayout";
 import AdminLayout from "./layouts/AdminLayout";
 import ValidateCode from "./pages/ValidateCode";
 import ResetPassword from "./pages/ResetPassword";
-import Pages from "./pages/Pages";
+import Pages from "./pages/pages";
+import List from "./pages/pages/List";
+import Register from "./pages/pages/Register";
+import Edit from "./pages/pages/Edit";
 
 export const router = createBrowserRouter([
     {
@@ -54,9 +57,15 @@ export const router = createBrowserRouter([
                                 path: "paginas",
                                 children: [
                                     {
+                                        Component: List,
+                                        index: true,
+                                    },
+                                    {
+                                        Component: Register,
                                         path: "cadastrar"
                                     },
                                     {
+                                        Component: Edit,
                                         path: "editar/:id"
                                     }
                                 ]
