@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Pin, PinOff } from "lucide-react";
 import { useAuth } from "../../../contexts/Authenticate";
@@ -6,9 +6,9 @@ import { avatars } from "../../../services/admin/avatars";
 import { useOverlay } from "../../../contexts/Overlay";
 import Modal from "../../ui/Modal";
 import { updateAvatar } from "../../../services/admin/updateAvatar";
+import CardImage from "../../ui/CardImage";
 
 function GalleryModal() {
-    const { closeModal } = useOverlay();
     const { auth } = useAuth();
     
     const [images, setImages] = useState([]);
@@ -40,22 +40,21 @@ function GalleryModal() {
                 </div>
             </Modal.Header>
             <Modal.Main>
-                <div className="max-h-96 overflow-y-auto grid grid-cols-4 gap-5">
+                <div className="max-h-96 overflow-auto grid grid-cols-2 sm:grid-cols-4 gap-5">
                     {images.map((image, index) => (
-                        <div key={index} className="max-w-32 relative">
-                            <button className="w-full p-1 absolute flex flex-wrap gap-2 justify-end" onClick={() => onSubmit(image.id)}>
+                        <CardImage.WithActions
+                            key={index}
+                            src={image.path}
+                            className="w-32"
+                        >
+                            <CardImage.Button>
                                 {image.avatar.active ? (
-                                    <span className="p-1 bg-red-400/70 hover:bg-red-400 text-white rounded-full">
-                                        {<Pin/>}
-                                    </span>
+                                    <Pin className="size-full text-yellow-600 dark:text-yellow-400"/>
                                 ): (
-                                    <span className="p-1 bg-gray-400/70 hover:bg-gray-400 text-white rounded-full">
-                                        {<PinOff/>}
-                                    </span>
+                                    <PinOff className="size-full"/>
                                 )}
-                            </button>
-                            <img src={image.path} alt="" draggable={false}/>
-                        </div>
+                            </CardImage.Button>
+                        </CardImage.WithActions>
                     ))}
                 </div>
             </Modal.Main>
