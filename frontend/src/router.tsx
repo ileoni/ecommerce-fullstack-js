@@ -13,6 +13,7 @@ import Pages from "./pages/pages";
 import List from "./pages/pages/List";
 import Register from "./pages/pages/Register";
 import Edit from "./pages/pages/Edit";
+import GalleryType from "./pages/gallery-type";
 
 export const router = createBrowserRouter([
     {
@@ -71,7 +72,6 @@ export const router = createBrowserRouter([
                                 ]
                             },
                             {
-                                Component: Dashboard,
                                 path: "galeria",
                                 children: [
                                     {
@@ -79,7 +79,7 @@ export const router = createBrowserRouter([
                                         path: "lista"
                                     },
                                     {
-                                        Component: Dashboard,
+                                        Component: GalleryType,
                                         path: "categorias"
                                     }
                                 ]
