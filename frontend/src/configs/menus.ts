@@ -1,6 +1,7 @@
-type Options = { title?: string, subtitle?: string, slug?: string, isVisible?: boolean, children?: any }
+type Children = { visible?: any, hidden?: any }
+type Options = { title?: string, subtitle?: string, slug?: string, isVisible?: boolean, children?: Children }
 
-const setAttributes = (options: Options) => options; 
+const setAttributes = (options: Options) => options;
 
 export default {
     admin: {
@@ -37,13 +38,14 @@ export default {
                 slug: "paginas",
                 isVisible: true,
                 children: {
-                    register: setAttributes({
-                        slug: "cadastrar"
-                    }),
-                    edit: setAttributes({
-                        slug: "editar"
-                    }),
-                    isVisible: false
+                    hidden: {
+                        register: setAttributes({
+                            slug: "cadastrar"
+                        }),
+                        edit: setAttributes({
+                            slug: "editar"
+                        })
+                    }
                 }
             }),
             gallery: setAttributes({
@@ -51,15 +53,22 @@ export default {
                 slug: "galeria",
                 isVisible: true,
                 children: {
-                    list: setAttributes({
-                        title: "lista",
-                        slug: "galeria/lista"
-                    }),
-                    categories: setAttributes({
-                        title: "categorias",
-                        slug: "galeria/categorias"
-                    }),
-                    isVisible: true
+                    visible: {
+                        list: setAttributes({
+                            title: "lista",
+                            slug: "galeria/lista"
+                        }),
+                        categories: setAttributes({
+                            title: "categorias",
+                            slug: "galeria/categorias"
+                        }),
+                    },
+                    hidden: {
+                        register: setAttributes({
+                            slug: "../cadastrar",
+                            isVisible: false
+                        })
+                    }
                 }
             }),
             product: setAttributes({
@@ -67,19 +76,20 @@ export default {
                 slug: "produtos",
                 isVisible: true,
                 children: {
-                    list: setAttributes({
-                        title: "lista",
-                        slug: "produtos/lista"
-                    }),
-                    categories: setAttributes({
-                        title: "categorias",
-                        slug: "produtos/categorias"
-                    }),
-                    cupons: setAttributes({
-                        title: "coupons",
-                        slug: "produtos/coupons"
-                    }),
-                    isVisible: true
+                    visible: {
+                        list: setAttributes({
+                            title: "lista",
+                            slug: "produtos/lista"
+                        }),
+                        categories: setAttributes({
+                            title: "categorias",
+                            slug: "produtos/categorias"
+                        }),
+                        cupons: setAttributes({
+                            title: "coupons",
+                            slug: "produtos/coupons"
+                        }),
+                    }
                 }
             }),
             orders: setAttributes({

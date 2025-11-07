@@ -10,10 +10,12 @@ import AdminLayout from "./layouts/AdminLayout";
 import ValidateCode from "./pages/ValidateCode";
 import ResetPassword from "./pages/ResetPassword";
 import Pages from "./pages/pages";
-import List from "./pages/pages/List";
+import PageList from "./pages/pages/List";
 import Register from "./pages/pages/Register";
 import Edit from "./pages/pages/Edit";
 import GalleryType from "./pages/gallery-type";
+import Gallery from "./pages/gallery";
+import GalleryList from "./pages/gallery/List";
 
 export const router = createBrowserRouter([
     {
@@ -58,7 +60,7 @@ export const router = createBrowserRouter([
                                 path: "paginas",
                                 children: [
                                     {
-                                        Component: List,
+                                        Component: PageList,
                                         index: true,
                                     },
                                     {
@@ -72,10 +74,11 @@ export const router = createBrowserRouter([
                                 ]
                             },
                             {
+                                Component: Gallery,
                                 path: "galeria",
                                 children: [
                                     {
-                                        Component: Dashboard,
+                                        Component: GalleryList,
                                         path: "lista"
                                     },
                                     {

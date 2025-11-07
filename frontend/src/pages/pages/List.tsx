@@ -16,7 +16,7 @@ function List() {
 
     const ResgiterNavLink = RegisterNavLinkStyle(NavLink);
 
-    const { register, edit } = useConfigs("menus.admin.authenticate.pages.children");
+    const { register, edit } = useConfigs("menus.admin.authenticate.pages.children.hidden");
     const { toggleModal, setState } = useOverlay({ Component: <ConfirmationModal onDelete={() => {}} /> })
     
     useEffect(() => {

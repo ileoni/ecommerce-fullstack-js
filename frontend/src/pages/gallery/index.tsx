@@ -1,6 +1,11 @@
+import { Outlet } from "react-router";
+import Card from "../../components/ui/Card";
+
 function Gallery() {
     return (
-        <>teste</>
+        <Card>
+            <Outlet />
+        </Card>
     )
 }
 
