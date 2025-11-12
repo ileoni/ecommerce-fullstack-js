@@ -11,11 +11,12 @@ import ValidateCode from "./pages/ValidateCode";
 import ResetPassword from "./pages/ResetPassword";
 import Pages from "./pages/pages";
 import PageList from "./pages/pages/List";
-import Register from "./pages/pages/Register";
+import PageRegister from "./pages/pages/Register";
 import Edit from "./pages/pages/Edit";
 import GalleryType from "./pages/gallery-type";
 import Gallery from "./pages/gallery";
 import GalleryList from "./pages/gallery/List";
+import GalleryRegister from "./pages/gallery/Register";
 
 export const router = createBrowserRouter([
     {
@@ -64,7 +65,7 @@ export const router = createBrowserRouter([
                                         index: true,
                                     },
                                     {
-                                        Component: Register,
+                                        Component: PageRegister,
                                         path: "cadastrar"
                                     },
                                     {
@@ -80,6 +81,10 @@ export const router = createBrowserRouter([
                                     {
                                         Component: GalleryList,
                                         path: "lista"
+                                    },
+                                    {
+                                        Component: GalleryRegister,
+                                        path: "cadastrar"
                                     },
                                     {
                                         Component: GalleryType,
