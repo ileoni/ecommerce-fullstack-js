@@ -17,6 +17,8 @@ import GalleryType from "./pages/gallery-type";
 import Gallery from "./pages/gallery";
 import GalleryList from "./pages/gallery/List";
 import GalleryRegister from "./pages/gallery/Register";
+import Product from "./pages/product";
+import ProductList from "./pages/product/List";
 
 export const router = createBrowserRouter([
     {
@@ -93,19 +95,17 @@ export const router = createBrowserRouter([
                                 ]
                             },
                             {
-                                Component: Dashboard,
+                                Component: Product,
                                 path: "produtos",
                                 children: [
                                     {
-                                        Component: Dashboard,
+                                        Component: ProductList,
                                         path: "lista"
                                     },
                                     {
-                                        Component: Dashboard,
                                         path: "categorias"
                                     },
                                     {
-                                        Component: Dashboard,
                                         path: "coupons"
                                     }
                                 ]
