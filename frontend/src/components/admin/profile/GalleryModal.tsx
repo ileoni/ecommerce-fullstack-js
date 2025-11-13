@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Pin, PinOff } from "lucide-react";
 import { useAuth } from "../../../contexts/Authenticate";
 import { avatars } from "../../../services/admin/avatars";
-import { useOverlay } from "../../../contexts/Overlay";
 import Modal from "../../ui/Modal";
 import { updateAvatar } from "../../../services/admin/updateAvatar";
 import CardImage from "../../ui/CardImage";

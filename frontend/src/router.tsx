@@ -9,16 +9,19 @@ import AuthLayout from "./layouts/AuthLayout";
 import AdminLayout from "./layouts/AdminLayout";
 import ValidateCode from "./pages/ValidateCode";
 import ResetPassword from "./pages/ResetPassword";
-import Pages from "./pages/pages";
-import PageList from "./pages/pages/List";
-import PageRegister from "./pages/pages/Register";
-import Edit from "./pages/pages/Edit";
+import Pages from "./pages/page";
+import PageList from "./pages/page/List";
+import PageRegister from "./pages/page/Register";
+import Edit from "./pages/page/Edit";
 import GalleryType from "./pages/gallery-type";
 import Gallery from "./pages/gallery";
 import GalleryList from "./pages/gallery/List";
 import GalleryRegister from "./pages/gallery/Register";
 import Product from "./pages/product";
 import ProductList from "./pages/product/List";
+import ProductRegister from "./pages/product/Register";
+import ProductEdit from "./pages/product/Edit";
+import ProductCategory from "./pages/product-category";
 
 export const router = createBrowserRouter([
     {
@@ -103,6 +106,15 @@ export const router = createBrowserRouter([
                                         path: "lista"
                                     },
                                     {
+                                        Component: ProductRegister,
+                                        path: "cadastrar"
+                                    },
+                                    {
+                                        Component: ProductEdit,
+                                        path: "editar/:id"
+                                    },
+                                    {
+                                        Component: ProductCategory,
                                         path: "categorias"
                                     },
                                     {

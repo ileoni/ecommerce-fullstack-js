@@ -89,6 +89,14 @@ export default {
                             title: "coupons",
                             slug: "produtos/coupons"
                         }),
+                    },
+                    hidden: {
+                        register: setAttributes({
+                            slug: "../cadastrar"
+                        }),
+                        edit: setAttributes({
+                            slug: "../editar"
+                        })
                     }
                 }
             }),
