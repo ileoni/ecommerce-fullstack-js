@@ -21,7 +21,6 @@ import Product from "./pages/product";
 import ProductList from "./pages/product/List";
 import ProductRegister from "./pages/product/Register";
 import ProductEdit from "./pages/product/Edit";
-import ProductCategory from "./pages/product-category";
 
 export const router = createBrowserRouter([
     {
@@ -114,7 +113,6 @@ export const router = createBrowserRouter([
                                         path: "editar/:id"
                                     },
                                     {
-                                        Component: ProductCategory,
                                         path: "categorias"
                                     },
                                     {
